@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index ::  dynamic(~{::main})}">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+</head>
+
+<body>
+    <main>
+
+
+        <div class="product" style="margin-top: 10%;">
+            <h3 class="heading">Sản phẩm đang khuyến mãi của hãng DELL </h3>
+
+            <div class="all-product-for-brand row" style="    margin-left: 5%;margin-top: 5%;">
+                <div class="img col-3">
+                    <div class="img-brand">
+                        <img src="/rest/upload/images/DE.jpg" alt="">
+                    </div>
+                </div>
+                <div class=" slick-product-all col-8">
+                    <div class="product-slider ">
+                        <div class="product-item"th:each=" bn : ${list5}">
+                            <div class="product-top">
+                                
+                                <h3 style="color: red;">Giảm :[[${bn.giamGia}]] %</h3>
+                                <a href="" class="product-thumb" th:href="@{|/product/details/${bn.productId}|}">
+                                    <img style="width: 371.56px;"  th:src="@{|/rest/upload/images/${bn.anhChinh}|}" alt="">
+                                </a>
+                                
+                                <a  class="buy-now"th:href="@{|/product/details/${bn.productId}|}">Mua ngay</a>
+                                <th:block th:if="${#request.remoteUser}">
+                                    <!-- dung if neu ma dang nhap roi thi hien thi   -->
+                        
+                        
+                                    <button  class="like"th:attr="ng-click=@{|cartlike.add(${bn.productId})|}">
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAATpJREFUSEvFleFRwzAMhb9OQEeACYAJChuwAXQCGIVOUNiADYANYAIYASYo93JSTnWd2PFdiv+ksaL39J5kd8HMazEzPv9GcAPcAhem8BvYAC/2rvg9cGrvH8BziPfGpAqWwBYQQG692ebVQFwFrIEfj6cEquQc+AUegAj4CJxYosf1vZaUelx7lzmCO6teyZLeV2EfS10kzMVlpYqQiiflRQVKXsVgw4R5ke9AZ2Mk2BngGaBKWpaUf1lih31Ugtktcv/UPNmUNrFkmYZA9uiZbbIAfEz1vJ5AItBXG9fPcEAPrgofRZ2FWpIUXNMzeNCkYgrJKHg6RdHjGpIi+BhBSUkVeIlgiET7saF7nqejVvN/kNrll5umZRS8RoEXFEm0VwU+hSDapd/FynPXdemkNsVretAEfDQFf3ZDVxl/VBnpAAAAAElFTkSuQmCC"/>
+            
+                                    </button>
+                        
+                                </th:block>
+                                <button  class="sosanh"th:attr="ng-click=@{|cartSsSp1.add(${bn.productId})|}">
+                                    So sánh
+        
+                                </button>
+                            </div>
+                            <p class="name">[[${bn.productName}]]</p>
+        
+                                
+        
+                            <th:block th:if="*{bn.giamGia != NULL}">
+                                <p style="text-decoration-line:line-through; text-align: center;">Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </p>
+                                <b class="gia" style=" margin-left: 86px;" >[[' Giảm còn : ' + ${#numbers.formatDecimal(bn.gia  - (bn.gia * bn.giamGia/100), 1, 'DEFAULT', 0, 'DEFAULT')} + '' +'VNĐ']]</b>
+                            </th:block>
+                            <th:block th:if="*{bn.giamGia == NULL}">
+                                <b >Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </b>
+    
+                            </th:block>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product" style="margin-top: 5%;">
+            <h3 class="heading">Sản phẩm đang khuyến mãi của hãng MacOs </h3>
+
+            <div class="all-product-for-brand row" style="    margin-left: 5%;margin-top: 5%;">
+                <div class="img col-3">
+                    <div class="img-brand">
+                        <img src="/rest/upload/images/MA.jpg" alt="">
+                    </div>
+                </div>
+                <div class=" slick-product-all col-8">
+                    <div class="product-slider ">
+                        <div class="product-item"th:each=" bn : ${list4}">
+                            <div class="product-top">
+                                
+                                <h3 style="color: red;">Giảm :[[${bn.giamGia}]] %</h3>
+                                <a href="" class="product-thumb" th:href="@{|/product/details/${bn.productId}|}">
+                                    <img style="width: 371.56px;"  th:src="@{|/rest/upload/images/${bn.anhChinh}|}" alt="">
+                                </a>
+                                
+                                <a  class="buy-now"th:href="@{|/product/details/${bn.productId}|}">Mua ngay</a>
+                                <th:block th:if="${#request.remoteUser}">
+                                    <!-- dung if neu ma dang nhap roi thi hien thi   -->
+                        
+                        
+                                    <button  class="like"th:attr="ng-click=@{|cartlike.add(${bn.productId})|}">
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAATpJREFUSEvFleFRwzAMhb9OQEeACYAJChuwAXQCGIVOUNiADYANYAIYASYo93JSTnWd2PFdiv+ksaL39J5kd8HMazEzPv9GcAPcAhem8BvYAC/2rvg9cGrvH8BziPfGpAqWwBYQQG692ebVQFwFrIEfj6cEquQc+AUegAj4CJxYosf1vZaUelx7lzmCO6teyZLeV2EfS10kzMVlpYqQiiflRQVKXsVgw4R5ke9AZ2Mk2BngGaBKWpaUf1lih31Ugtktcv/UPNmUNrFkmYZA9uiZbbIAfEz1vJ5AItBXG9fPcEAPrgofRZ2FWpIUXNMzeNCkYgrJKHg6RdHjGpIi+BhBSUkVeIlgiET7saF7nqejVvN/kNrll5umZRS8RoEXFEm0VwU+hSDapd/FynPXdemkNsVretAEfDQFf3ZDVxl/VBnpAAAAAElFTkSuQmCC"/>
+            
+                                    </button>
+                        
+                                </th:block>
+                                <button  class="sosanh"th:attr="ng-click=@{|cartSsSp1.add(${bn.productId})|}">
+                                    So sánh
+        
+                                </button>
+                            </div>
+                            <p class="name">[[${bn.productName}]]</p>
+        
+                                
+        
+                            <th:block th:if="*{bn.giamGia != NULL}">
+                                <p style="text-decoration-line:line-through; text-align: center;">Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </p>
+                                <b class="gia" style=" margin-left: 86px;" >[[' Giảm còn : ' + ${#numbers.formatDecimal(bn.gia  - (bn.gia * bn.giamGia/100), 1, 'DEFAULT', 0, 'DEFAULT')} + '' +'VNĐ']]</b>
+                            </th:block>
+                            <th:block th:if="*{bn.giamGia == NULL}">
+                                <b >Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </b>
+    
+                            </th:block>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product" style="margin-top: 5%;">
+            <h3 class="heading">Sản phẩm đang khuyến mãi của hãng ASUS </h3>
+
+            <div class="all-product-for-brand row" style="    margin-left: 5%;margin-top: 5%;">
+                <div class="img col-3">
+                    <div class="img-brand">
+                        <img src="/rest/upload/images/ASUS.webp" alt="">
+                    </div>
+                </div>
+                <div class=" slick-product-all col-8">
+                    <div class="product-slider ">
+                        <div class="product-item"th:each=" bn : ${list1}">
+                            <div class="product-top">
+                                
+                                <h3 style="color: red;">Giảm :[[${bn.giamGia}]] %</h3>
+                                <a href="" class="product-thumb" th:href="@{|/product/details/${bn.productId}|}">
+                                    <img style="width: 371.56px;"  th:src="@{|/rest/upload/images/${bn.anhChinh}|}" alt="">
+                                </a>
+                                
+                                <a  class="buy-now"th:href="@{|/product/details/${bn.productId}|}">Mua ngay</a>
+                                <th:block th:if="${#request.remoteUser}">
+                                    <!-- dung if neu ma dang nhap roi thi hien thi   -->
+                        
+                        
+                                    <button  class="like"th:attr="ng-click=@{|cartlike.add(${bn.productId})|}">
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAATpJREFUSEvFleFRwzAMhb9OQEeACYAJChuwAXQCGIVOUNiADYANYAIYASYo93JSTnWd2PFdiv+ksaL39J5kd8HMazEzPv9GcAPcAhem8BvYAC/2rvg9cGrvH8BziPfGpAqWwBYQQG692ebVQFwFrIEfj6cEquQc+AUegAj4CJxYosf1vZaUelx7lzmCO6teyZLeV2EfS10kzMVlpYqQiiflRQVKXsVgw4R5ke9AZ2Mk2BngGaBKWpaUf1lih31Ugtktcv/UPNmUNrFkmYZA9uiZbbIAfEz1vJ5AItBXG9fPcEAPrgofRZ2FWpIUXNMzeNCkYgrJKHg6RdHjGpIi+BhBSUkVeIlgiET7saF7nqejVvN/kNrll5umZRS8RoEXFEm0VwU+hSDapd/FynPXdemkNsVretAEfDQFf3ZDVxl/VBnpAAAAAElFTkSuQmCC"/>
+            
+                                    </button>
+                        
+                                </th:block>
+                                <button  class="sosanh"th:attr="ng-click=@{|cartSsSp1.add(${bn.productId})|}">
+                                    So sánh
+        
+                                </button>
+                            </div>
+                            <p class="name">[[${bn.productName}]]</p>
+        
+                                
+        
+                            <th:block th:if="*{bn.giamGia != NULL}">
+                                <p style="text-decoration-line:line-through; text-align: center;">Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </p>
+                                <b class="gia" style=" margin-left: 86px;" >[[' Giảm còn : ' + ${#numbers.formatDecimal(bn.gia  - (bn.gia * bn.giamGia/100), 1, 'DEFAULT', 0, 'DEFAULT')} + '' +'VNĐ']]</b>
+                            </th:block>
+                            <th:block th:if="*{bn.giamGia == NULL}">
+                                <b >Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </b>
+    
+                            </th:block>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product" style="margin-top: 5%;">
+            <h3 class="heading">Sản phẩm đang khuyến mãi của hãng LENLOVO </h3>
+
+            <div class="all-product-for-brand row" style="    margin-left: 5%;margin-top: 5%;">
+                <div class="img col-3">
+                    <div class="img-brand">
+                        <img src="/rest/upload/images/unnamed (5).webp" alt="">
+                    </div>
+                </div>
+                <div class=" slick-product-all col-8">
+                    <div class="product-slider ">
+                        <div class="product-item"th:each=" bn : ${list2}">
+                            <div class="product-top">
+                                
+                                <h3 style="color: red;">Giảm :[[${bn.giamGia}]] %</h3>
+                                <a href="" class="product-thumb" th:href="@{|/product/details/${bn.productId}|}">
+                                    <img style="width: 371.56px;"  th:src="@{|/rest/upload/images/${bn.anhChinh}|}" alt="">
+                                </a>
+                                
+                                <a  class="buy-now"th:href="@{|/product/details/${bn.productId}|}">Mua ngay</a>
+                                <th:block th:if="${#request.remoteUser}">
+                                    <!-- dung if neu ma dang nhap roi thi hien thi   -->
+                        
+                        
+                                    <button  class="like"th:attr="ng-click=@{|cartlike.add(${bn.productId})|}">
+                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAATpJREFUSEvFleFRwzAMhb9OQEeACYAJChuwAXQCGIVOUNiADYANYAIYASYo93JSTnWd2PFdiv+ksaL39J5kd8HMazEzPv9GcAPcAhem8BvYAC/2rvg9cGrvH8BziPfGpAqWwBYQQG692ebVQFwFrIEfj6cEquQc+AUegAj4CJxYosf1vZaUelx7lzmCO6teyZLeV2EfS10kzMVlpYqQiiflRQVKXsVgw4R5ke9AZ2Mk2BngGaBKWpaUf1lih31Ugtktcv/UPNmUNrFkmYZA9uiZbbIAfEz1vJ5AItBXG9fPcEAPrgofRZ2FWpIUXNMzeNCkYgrJKHg6RdHjGpIi+BhBSUkVeIlgiET7saF7nqejVvN/kNrll5umZRS8RoEXFEm0VwU+hSDapd/FynPXdemkNsVretAEfDQFf3ZDVxl/VBnpAAAAAElFTkSuQmCC"/>
+            
+                                    </button>
+                        
+                                </th:block>
+                                <button  class="sosanh"th:attr="ng-click=@{|cartSsSp1.add(${bn.productId})|}">
+                                    So sánh
+        
+                                </button>
+                            </div>
+                            <p class="name">[[${bn.productName}]]</p>
+        
+                                
+        
+                            <th:block th:if="*{bn.giamGia != NULL}">
+                                <p style="text-decoration-line:line-through; text-align: center;">Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </p>
+                                <b class="gia" style=" margin-left: 86px;" >[[' Giảm còn : ' + ${#numbers.formatDecimal(bn.gia  - (bn.gia * bn.giamGia/100), 1, 'DEFAULT', 0, 'DEFAULT')} + '' +'VNĐ']]</b>
+                            </th:block>
+                            <th:block th:if="*{bn.giamGia == NULL}">
+                                <b >Giá : [[${#numbers.formatDecimal(bn.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+                               
+                                </b>
+    
+                            </th:block>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Danh sách yêu cầu đổi trả chưa xác nhận</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Mã Yêu Cầu</th>
+                <th scope="col">Người gửi</th>
+                <th scope="col">Email</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Sản phẩm</th>
+                <th scope="col">Mô tả lỗi </th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Ghi Chú</th>
+                <th scope="col">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody ng-if="items2.length > 0">
+                <tr ng-repeat="item in pager1.items2">
+                    <th scope="row">{{item.doiTraId}}</th>
+                    <th scope="row">{{item.account.username}}</th>
+                    <th scope="row">{{item.email}}</th>
+                    <th scope="row">{{item.phoneNumber}}</th>
+                    <th scope="row">{{item.product.productName}}</th>
+                    <th scope="row">{{item.moTaLoi}}</th>
+                    <th scope="row">{{item.status == 0 ? 'Chưa xác nhận' : 'Đã xác nhận'}}</th>
+                    <th scope="row">{{item.description}}</th>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <button ng-click="edit(item)" class="btn btn-warning"><i class="fas fa-camera fa-xs"></i></button>
+                            <button ng-click="delete(item)" class="btn btn-danger"><i class="fas fa-trash fa-xs"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody> 
+          </table>
+          <p style="text-align: center; color: darkblue; font-weight: 800;" ng-if="!items2.length > 0">Chưa có yêu cầu đổi trả</p> 
+          <div class="row" ng-if="items2.length > 0">
+              <div class="col-sm-6">
+                Hiển thị yêu cầu thứ <span>{{(pager1.page+1)*5-4}}</span> đến {{(pager1.page+1)*5}} trong danh sách đổi trả
+              </div>
+              <div class="col-sm-6">
+                <button ng-click="pager1.first()" class="btn btn-primary">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button ng-click="pager1.prev()" class="btn btn-primary">
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button class="btn btn-success">{{pager1.page + 1}}/{{pager1.count}} trang</button>
+                <button ng-click="pager1.next()" class="btn btn-primary">
+                    <i class="fas fa-forward"></i>
+                </button>
+                <button ng-click="pager1.last()" class="btn btn-primary">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+              </div>
+          </div>
+         
+    </div>
+</div>

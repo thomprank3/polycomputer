@@ -1,0 +1,63 @@
+</style>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Danh sách sản phẩm giảm giá</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width:10%">Mã SP</th>
+                <th style="width:10%">Hình</th>
+                <th style="width:30%">Tên Sản Phẩm</th>
+                <th style="width:10%">Thương Hiệu</th>
+                <th style="width:15%">Giá gốc</th>
+                <th style="width:5%">Giảm giá</th>
+                <th style="width:15%">Giá khi giảm</th>
+                <th style="width:10%">Hành động</th>
+              </tr>
+            </thead>
+            <tbody ng-if="productGiamGia.length > 0">
+                <tr ng-repeat="item in pager1.productGiamGia">
+                    <td>{{item.productId}}</td>
+                    <td scope="row" style="text-align: center;">
+                        <img src="/rest/upload/images/{{item.anhChinh}}"  style="width: auto;height: 97px;">
+                    </td>
+                    <td>{{item.productName}}</td>
+                    <td>{{item.brand.brandName}}</td>
+                    <td>{{item.gia | currency : ''}} VNĐ</td>
+                    <td>{{item.giamGia + ' %'}}</td>
+                    <td>{{item.gia - (item.gia * item.giamGia/100) | currency : ''}} VNĐ</td>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <button ng-click="edit(item)" class="btn btn-warning"><i class="fas fa-camera fa-xs"></i></button>
+                            <button ng-click="delete(item)" class="btn btn-danger"><i class="fas fa-trash fa-xs"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </td>
+            </tbody> 
+          </table>
+          <p style="text-align: center; color: darkblue; font-weight: 800;" ng-if="!productGiamGia.length > 0">Chưa có sản phẩm</p> 
+          <div class="row" ng-if="productGiamGia.length > 0">
+            <div class="col-sm-6">
+              Hiển thị Sản Phẩm thứ <span>{{(pager1.page+1)*5-4}}</span> đến {{(pager1.page+1)*5}} trong danh sách Sản Phẩm
+            </div>
+            <div class="col-sm-6">
+              <button ng-click="pager.first()" class="btn btn-primary">
+                  <i class="fas fa-step-backward"></i>
+              </button>
+              <button ng-click="pager.prev()" class="btn btn-primary">
+                  <i class="fas fa-backward"></i>
+              </button>
+              <button class="btn btn-success">{{pager1.page + 1}}/{{pager1.count}} trang</button>
+              <button ng-click="pager.next()" class="btn btn-primary">
+                  <i class="fas fa-forward"></i>
+              </button>
+              <button ng-click="pager.last()" class="btn btn-primary">
+                  <i class="fas fa-step-forward"></i>
+              </button>
+            </div>
+        </div>
+         
+    </div>
+</div>

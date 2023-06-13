@@ -1,0 +1,152 @@
+<ul class="nav nav-tabs justify-content-center" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" data-target="#edit" href="">Category Edition</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" data-target="#list" href="">List Category</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="edit" class="container tab-pane fade"><br>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <!-- <h6 class="m-0 font-weight-bold text-primary">Danh sách danh mục</h6> -->
+                <h6 class="m-0 font-weight-bold text-primary">{{titleForm}}</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3"  style="text-align: center;">
+                        <!-- <img src="./img/ASUS.webp" alt="" width="100%">
+                        <input type="file" name="" id="" style="margin-top: 5px;"> -->
+                        <label for="image">
+                            <img ng-src="{{'/admin/images/' + form.categoryImage}}"  style="max-width: 100%;height: 200px;">
+                        </label>
+                        <input type="file" class="form-control" id="image"
+                        onchange="angular.element(this).scope().imageChanged(this.files)">
+                        <!-- <img src="./img/undraw_profile.svg" alt="" width="50%"> -->
+                    </div>
+                    <div class="col-sm-9">
+                        <!-- <div class="form-group">
+                            <label>Mã danh mục:</label>
+                            <input type="text" class="form-control" value="2022" disabled>
+                        </div> -->
+                        <div class="form-group">
+                            <label>Tên danh mục:</label>
+                            <input type="text" class="form-control" value="Laptop Gaming" ng-model="form.categoryName">
+                        </div>
+                        <div class="form-group">
+                            <label for="mota">Mô tả:</label>
+                            <textarea ng-model="form.description" id="mota" style="width:100%; height: 90px;" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button ng-click="create()" class="btn btn-primary" ng-show="fillStatus">
+                    Lưu
+                </button>
+                <button ng-click="update()" class="btn btn-success" ng-show="!fillStatus">
+                    Cập nhật
+                </button>
+                <button ng-click="delete(form)" class="btn btn-danger">
+                    Xóa
+                </button>
+                <button ng-click="reset()" class="btn btn-info">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="list" class="container tab-pane active"><br>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Danh sách danh mục</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- <div class="col-sm-2 form-group">
+                        <label for="selectOpt">Hiển thị: </label>
+                        <select id="selectOpt" style="height: 38px;border-radius: 20%; border: 0.2px solid lightgray;color: #858796;">
+                            <option value="">5</option>
+                            <option value="">10</option>
+                            <option value="">15</option>
+                            <option value="">20</option>
+                            <option value="">25</option>
+                        </select>
+                        mục
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <select class="form-control">
+                            <option value="" disabled selected>Lọc</option>
+                            <option value="">Trên xuống</option>
+                            <option value="">Dưới lên</option>
+                        </select>
+                    </div> -->
+                    <div class="col-sm-6 form-group">
+                        <div class="form-inline float-left">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Laptop..." aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                            <button class="btn btn-primary float-right" ng-click="goToAdd()">Thêm Danh Mục</button>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="width:15%">Mã danh mục</th>
+                        <th scope="col" style="width: 25%;">Hinh anh</th>
+                        <th scope="col" style="width:50%">Tên</th>
+                        <th scope="col" style="width:10%">Hành động</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in pager.items">
+                            <th scope="row">{{item.categoryId}}</th>
+                            <!-- <th>
+                                <img th:src="@{'/admin/images/' + {{item.categoryImage}}}" alt="">
+                            </th> -->
+                            <th scope="row">{{item.categoryImage}}</th>
+                            <!-- <td><img th-src="{{'/admin/images/' + item.categoryImage}}"
+                                width="150px" height="150px"  alt=""></td> -->
+                            <td>{{item.categoryName}}</td>
+                            <td>
+                                <div class="btn-group btn-group-xs">
+                                    <!-- <a href="#!edit-category"> -->
+                                        <button ng-click="edit(item)" class="btn btn-warning"><i class="fas fa-camera fa-xs"></i></button>
+                                    <!-- </a> -->
+                                    <button ng-click="delete(item)" class="btn btn-danger"><i class="fas fa-trash fa-xs"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody> 
+                  </table>
+                  <div class="row">
+                      <div class="col-sm-6">
+                        Hiển thị danh mục thứ <span>{{(pager.page+1)*1}}</span> đến {{(pager.page+1)*2}} trong Danh sách danh mục
+                      </div>
+                      <div class="col-sm-6">
+                        <button ng-click="pager.first()" class="btn btn-primary">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button ng-click="pager.prev()" class="btn btn-primary">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button class="btn btn-success">{{pager.page + 1}} of {{pager.count}}</button>
+                        <button ng-click="pager.next()" class="btn btn-primary">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                        <button ng-click="pager.last()" class="btn btn-primary">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                      </div>
+                  </div>
+                 
+            </div>
+        </div>
+    </div>
+  </div>

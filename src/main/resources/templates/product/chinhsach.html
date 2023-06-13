@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index ::  dynamic(~{::main})}">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="tieude row">
+
+            <div class=" a col-5">
+                <h3>Quản lý đơn hàng > <a style="color: #640310;" href="/"> Trang chủ</a></h3>
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-2" style="margin-left: 5%;margin-top: 10px; height: 400px;">
+                <div class="row">
+                    <h2 style="margin-left: 20%; font-weight: 700 !important;">[[${#request.remoteUser}]]</h2>
+                </div>
+                <div class="row" style="margin-top: 20px;margin-left: 20%;">
+                    <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVRJREFUSEu1lY0xBEEQRt9FwkWACISACBABIkAEXASIAJE4ESAS6l3tqLm+2dm/2q7autqbnn49PV/3LpjZFjPHpw/gAjgGDpvHnNbN8wa815KsAU6BB2C/45TfwA0gbMfaAI/A1cDyuUfQlpUAY4KnoCvgOidEgGV5HZh5dD/LyxUB1nNvIsAYyxQjB6iWp4nB0/b/U+SAZ+A8ALw078S6qqjc7ps1E4trL4D/b/WB2j5oEYFS/QprlsFyaL9hzVhHERCdXDdzs1GydyGI70k1t20tkJeoBJhyJZvYOaBUorGAzzRWui7ZOgqumTPqIzgUL7nUZM4XJVczfU6CQ1Gm+pQa7RJQwiUr9c5PPiD7jgqzFJJGs6e1Z/yNVh0VOs867FI2YyA7kzTKNB7V4wvqGn7W3IYc9MHJYYJ8lGMaJepc+Rq0GDgF6PNNHttsm32zA/4AsaZAGSvkecYAAAAASUVORK5CYII=" />
+                    <a href="" style="margin-left: 10px; color: rgb(24, 0, 245);font-weight: 700 !important;">Đổi trả
+                        sản phẩm</a>
+                </div>
+
+                <hr style="margin-left: 20%; width: 50%;">
+
+            </div>
+            <div class="col-9">
+
+
+                <br>
+                <br>
+                <br>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Hủy đơn hàng</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+                    <ul>
+                        <li>
+                            Poly's Computer cho phép Quý khách hủy đơn hàng đã đặt mua trên website theo chính sách
+                            của Poly's Computer.
+                        </li>
+                        <li>
+                            Trường hợp Quý khách muốn hủy đơn hàng, Quý khách vui lòng liên hệ đến số điện thoại
+                            Chăm sóc khách hàng: 0123456789 để được hỗ trợ
+                        </li>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Cam kết đổi trả hàng</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+                    <ul>
+                        <li>
+                            Trường hợp Quý khách có điều gì chưa hài lòng với đơn hàng đã đặt mua tại Poly's Computer,
+                            xin vui lòng báo với chúng tôi qua việc điền yêu cầu của bạn vào mẫu Yêu cầu đổi
+                            / trả hàng và gửi kèm cùng hoá đơn hoặc phiếu xuất kho trong vòng 10 ngày, kể từ ngày giao
+                            hàng cho Quý khách.
+
+                        </li>
+                        <li>
+                            Trước khi quyết định đổi / trả hàng, xin Quý khách vui lòng đọc kỹ những điều kiện đổi trả
+                            dưới đây. Nếu Quý khách không
+                            thể thoả mãn toàn bộ các điều kiện đổi trả này, Poly's Computer xin phép được từ chối thực
+                            hiện yêu cầu đổi / trả hàng của Quý khách.
+                        </li>
+                        <li>
+                            Trong trường hợp Quý khách vẫn nhất quyết phải đổi / trả và Poly's Computer tìm được
+                            phương án hỗ trợ, chúng tôi sẽ cố gắng hỗ trợ Quý khách nhưng bắt buộc phải thu một khoản
+                            phí xử lý, tối
+                            thiểu là 20% giá trị hàng hoá đổi trả cho tháng sử dụng đầu tiên, và mức phí này sẽ ngày
+                            càng tăng theo thời gian sử dụng hàng hoá của Quý khách.
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Điều kiện để được đổi / trả hàng</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+                    <p style="color: black;
+    font-weight: bold;">Quý khách sẽ được đổi / trả hàng khi thoả mãn toàn bộ các điều kiện dưới đây:</p>
+                    <ul>
+                        <li>
+                            Sản phẩm của Quý khách không thuộc danh sách không chấp nhận đổi / trả hàng.
+
+                        </li>
+                        <li>
+                            Sản phẩm của Quý khách phải đảm bảo còn mới nguyên, chưa được sử dụng, và còn nguyên tình
+                            trạng như ban đầu, khi Quý khách nhận sản phẩm.
+                        </li>
+                        <li>
+                            Trường hợp sản phẩm không còn nguyên tình trạng như ban đầu (Quý khách đã bóc sản phẩm ra
+                            kiểm tra hoặc chạy thử) thì sản phẩm chỉ được đổi / trả hàng khi thoả mãn một trong các điều
+                            kiện dưới đây:
+                            <p style="color: black;
+    font-weight: bold;">
+                                <br>
+                                – Sản phẩm bị hư hỏng trong quá trình vận chuyển; và / hoặc
+                                <br>
+
+                                – Sản phẩm bị giao sai, không đúng với sản phẩm mà Quý khách đã đặt; và / hoặc
+                                <br>
+
+                                – Sản phẩm bị lỗi do nhà sản xuất trong thời gian được phép đổi trả.
+                                <br>
+                            </p>
+
+
+                        </li>
+                    </ul>
+                </div>
+
+
+                <hr>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Cách thức đổi / trả hàng</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+                    <p style="color: black;
+    font-weight: bold;">Đóng gói sản phẩm đổi / trả hàng đúng cách:</p>
+                    <ul>
+                        <li>
+                            Sau khi nhân viên gọi điện hoặc gửi gmail cho quý khách thì
+                            <p style="color: black;
+    font-weight: bold;">
+                                Quý khách đóng gói sản phẩm dự kiến đổi trả cùng với các phụ kiện, tài liệu hướng dẫn,
+                                thẻ bảo hành và hàng tặng kèm (nếu có)… vào thùng / hộp đựng sản phẩm của nhà sản xuất,
+                                giống như
+                                tình trạng ban đầu khi Quý khách nhận hàng (trường hợp không có thùng / hộp ban đầu, Quý
+                                khách có thể sử dụng các vật dụng khác để thay thế).
+                            </p>
+
+                        </li>
+                        <li>
+                            Quý khách lưu ý kiện hàng sau khi đóng gói cần đảm bảo đúng như những gì Quý khách đã nhận
+                            ban đầu và không được móp, méo hay trầy xước…).
+                        </li>
+                        <li>
+                            Quý khách mang kiện hàng kèm hoá đơn mua hàng hoặc phiếu xuất kho và mẫu Yêu cầu đổi / trả
+                            hàng đã điền
+                            đầy đủ thông tin đến bưu điện gần nhất và gửi về địa chỉ của Poly's Computer ( chúng tôi sẽ
+                            chịu 100% phí vận chuyển ).
+
+
+
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Những mặt hàng không được đổi / trả hàng</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+
+                    <ul>
+                        <li>
+                            Bất kỳ sản phẩm nào không đáp ứng quy định về đổi / trả hàng đã nêu ở trên.
+                        </li>
+                        <li>
+                            Các phần mềm mà có bản quyền gửi qua đường điện tử.
+                            Sản phẩm trưng bày hoặc thuộc chương trình giải phóng hàng tồn kho, bỏ mẫu. </li>
+                        <li>
+                            Máy tính PC hoặc Laptop mà được lắp ráp hoặc thay đổi cấu hình mặc định cho phù hợp với yêu
+                            cầu của Quý khách.
+
+                        </li>
+                        <li>
+                            Sản phẩm được đặt hàng theo yêu cầu hoặc bất kỳ sản phẩm nào mà ghi chú là sản phẩm không
+                            được đổi trả
+                            (trên website của chúng tôi hoặc tại thông tin giới thiệu sản phẩm ở Cửa hàng).
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Đổi / trả hàng đối với các sản phẩm thuộc chương trình bán hàng đặc biệt</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+                    <p style="color: black;
+    font-weight: bold;">bundele</p>
+                    <ul>
+                        <li>
+                            Đối với các sản phẩm thuộc gói Bundle ưu đãi hoặc được nhân viên chấp nhận (sản phẩm đóng
+                            gói chung), nếu muốn trả hàng, Quý khách cần trả lại toàn bộ các sản phẩm theo bundle đó.
+                        </li>
+                        <li>
+                            Tuy nhiên, Quý khách có thể đổi riêng từng sản phẩm thuộc Bundle trong trường hợp sản phẩm
+                            mà Quý khách nhận được bị hư hỏng trong quá trình vận chuyển, bị lỗi do nhà sản xuất, hoặc
+                            không đúng như sản phẩm mà Quý khách đã đặt.</li>
+
+
+                        <p style="color: black;
+    font-weight: bold;">Combos and Kits</p>
+                        <li>Combo và Kits là gói có từ hai sản phẩm trở lên và phải mua cùng nhau để được giảm giá hơn
+                            so với mua lẻ từng sản phẩm (được chiết khấu). Sản phẩm thuộc Combo hoặc Kit có thể được đổi
+                            hoặc trả riêng từng sản phẩm mà không cần phải trả toàn bộ Combo hoặc Kit.</li>
+                        <li>Tuy nhiên, nếu Quý khách muốn trả riêng một hoặc một vài sản phẩm mà không phải toàn bộ
+                            Combo hoặc Kit, mức chiết khấu mà Quý khách đã nhận khi mua Combo hoặc Kit sẽ không còn được
+                            áp dụng.</li>
+                        <li>Khi hoàn trả một phần Combo hoặc Kit, số tiền hoàn trả sẽ phải trừ đi số tiền chiết khấu mà
+                            Quý khách đã nhận do mua Combo hoặc Kit. Nếu số tiền đã được chiết khấu lớn hơn giá trị của
+                            sản phẩm mà Quý khách muốn hoàn trả, Quý khách sẽ không được hoàn lại tiền. Ví dụ: nếu mức
+                            chiết khấu của Combo/Kit là 500.000đ, và Quý khách muốn hoàn trả một phần Combo/Kit, số tiền
+                            500.000đ này sẽ được giảm trừ vào số tiền cần hoàn.</li>
+                        <p style="color: black;
+    font-weight: bold;">Hàng khuyến mãi của nhà sản xuất và Poly's Computer</p>
+                        <li>Nhà sản xuất có thể tặng kèm một số hàng khuyến mãi đi kèm với sản phẩm. Quý khách cần hoàn
+                            trả toàn bộ hàng khuyến mãi này để nhận được đủ giá trị hoàn tiền. Nếu Quý khách không hoàn
+                            trả đủ các hàng khuyến mãi, giá trị hoàn tiền sẽ được khấu trừ tương đương với các món
+                            khuyến mãi mà Quý khách không hoàn trả.</li>
+                        <li>Poly's Computer cũng có thể tặng quà cho Quý khách để cảm kích sự ủng hộ của Quý khách hay
+                            những món quà tri ân Khách hàng. Những quà tặng kèm này Quý khách không cần hoàn trả lại.
+                        </li>
+                    </ul>
+                </div>
+
+                <hr>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Giới hạn trách nhiệm</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+
+                    <ul>
+                        <li>
+                            Poly's Computer chỉ tư vấn và cung cấp thông tin sản phẩm, Khách hàng tự lựa chọn sản phẩm và tự
+                            chịu trách nhiệm về quyết định mua hàng của mình.
+
+                        </li>
+
+                    </ul>
+                </div>
+
+                <hr>
+
+                <div class="tieudedoitra row" style="margin-top: 30px;font-size: 38px; font-weight: bold;">
+                    <span>
+                        <span>Chính sách hoàn tiền</span>
+                    </span>
+                </div>
+                <br>
+                <div class="noidungdoitra col-9">
+                    <p style="color: black;
+    font-weight: bold;">Quy định chung</p>
+                    <ul>
+                        <li>
+                            Poly's Computer sẽ hoàn trả lại số tiền Khách hàng đã thanh toán sau khi xác nhận hoàn thành việc
+                            xử lý đổi/trả hàng của Khách hàng.
+                        </li>
+
+                    </ul> 
+                    <p style="color: black;
+    font-weight: bold;">
+                        Phương thức hoàn tiền
+                    </p>
+                    <ul>
+                        <li>
+                            Khách hàng sẽ được hoàn tiền theo đúng phương thức đã thanh toán với Poly's Computer khi mua hàng.
+                        </li>
+
+                    </ul>
+                    <p style="color: black;
+    font-weight: bold;">
+                        Thời gian hoàn tiền đối với từng phương thức
+                    </p>
+                    <ul>
+                        <li>
+                            <table>
+
+                                <tr>
+
+                                    <td>Phương thức thanh toán</td>
+
+                                    <td>
+                                        Phương thức hoàn tiền
+                                    </td>
+                                    <td>Thời gian thực hiện hoàn tiền</td>
+
+
+
+
+
+
+
+                                </tr>
+
+
+
+                                <tr style="height: 30px;">
+
+                                    <td style="    width: 40%;
+                                    font-size: 16px;">Tiền mặt</td>
+
+                                    <td>
+                                        Tiền mặt
+                                    </td>
+                                    <td>
+                                        Ngay khi Khách tới
+                                        Cửa hàng Poly's Computer</td>
+
+
+
+
+
+
+                                </tr>
+                                <tr style="height: 30px;">
+
+                                    <td style="    width: 40%;
+                                    font-size: 16px;">Quẹt thẻ qua máy POS</td>
+
+                                    <td>
+                                        Hoàn tiền vào tài khoản thẻ
+                                        thanh toán
+                                    </td>
+                                    <td>
+                                        7 - 10 ngày làm việc</td>
+
+
+
+
+
+
+                                </tr>
+                                <tr style="height: 30px;">
+
+                                    <td style="    width: 40%;
+                                    font-size: 16px;">VNPAY QR code</td>
+
+                                    <td>
+                                        Hoàn tiền vào tài khoản
+                                        Ngân hàng thanh toán
+                                    </td>
+                                    <td>
+                                        1 - 3 ngày làm việc</td>
+
+
+
+
+
+
+                                </tr>
+                                <tr style="height: 30px;">
+
+                                    <td style="    width: 40%;
+                                    font-size: 16px;">Thanh toán qua cổng thanh toán
+                                        online trên website Poly's Computer</td>
+
+                                    <td>
+                                        Hoàn tiền vào tài khoản thẻ
+                                        thanh toán
+                                    </td>
+                                    <td>
+                                        7 - 10 ngày làm việc</td>
+
+
+
+
+
+
+                                </tr>
+                                <tr style="height: 30px;">
+
+                                    <td style="    width: 40%;
+                                    font-size: 16px;">Thanh toán trả góp</td>
+
+                                    <td>
+                                        Không áp dụng hoàn tiền
+                                    </td>
+                                    <td>
+                                    </td>
+
+
+
+
+
+
+                                </tr>
+
+
+
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

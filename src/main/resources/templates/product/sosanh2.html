@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index ::  dynamic(~{::main})}">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+    <style>
+        /* .rating{
+      position: absolute;
+      transform: translate(-50%,-50%);
+      display: flex;
+  }
+.rating label{
+display: block;
+cursor: pointer;
+width: 50px;
+
+}
+.rating input{
+display: none;
+
+}
+.rating label:before{
+
+    content: '\f005';
+    font-family: fontAwesome;
+    position: relative;
+    display: block;
+    font-size: 50px;
+} */
+
+ 
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <div class="product " style="    margin-top: 9%;height: auto;">
+            <h3 class="heading">So sánh  </h3>
+            <hr>
+            <div class="row" style="margin-left: 240px;">
+
+                <div class="col-5" style="height:auto;">
+                    <div class="search" style="text-align: center; padding-top: 5% ;height: 82px;">
+                        
+
+                    </div>
+                    <div class="item-product" style=" width: 100%;  height: auto;"ng-repeat="item in cartSsSp1.items">
+                        <div class="img-product"
+                            style="margin-left: 30%; padding-top: 7% ;  width: 40%;  height: auto;">
+                            <a  th:href="@{|/product/details/{{item.productId}}|}">
+                                <img style="width: 100%; "
+                            th:src="@{/rest/upload/images/{{item.anhChinh}}}">
+                            </a>
+                           
+                        </div>
+                        <div class="price-product">
+
+                            <p style=" text-align: center; color: #cb1c22;font-size: 24px; font-weight: bold;
+                            line-height: 32px; ">Giá : {{item.gia | currency:"":0}} VNĐ</p>
+                        </div>
+                        <div class="name-product">
+
+                            <p style=" text-align: center; font-size: 24px; font-weight: bold;
+                            line-height: 32px; ">Tên : {{item.productName}}</p>
+                        </div>
+                        <a type="button" th:href="@{|/product/details/{{item.productId}}|}"  style="    color: #0664f9;
+                            position: relative;
+                            display: inline-block; font-size: 24px; margin-left: 45%;" class="muahang"><p>Xem chi tiết</p>
+                            </a>
+                    </div>
+                    <br>
+                </div>
+
+
+
+                <div class="col-5" style="height:auto;">
+                    <div class="search" style="text-align: center; padding-top: 5% ;">
+                        <form th:action="@{/product/all/searchSS}">
+                            <input class="form-control " type="text" style="display: inline-block;width: 50%;"
+                                name="name" id="name" placeholder="Tìm kiếm" aria-label="Search">
+                            <button class="btn btn-outline-secondary" style="display: inline-block;width: 10%;"
+                                type="submit"><img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAUJJREFUSEu9le0xBEEURc9GQAhEgAzIgAjIABmQARmQgQwQARnYEIiAOlWv1avR3TO7NWOq9sdOd9/z+r6PWbHws1pYnx5gD7gEjoHDCOQdeAHugfWU4FqAuxDvabjnegxSAxjlQRx8BBTynY83uQLO042OepAhoET+FdYU4aGGIK3aCbuEVp8M0POP2GVULfEiJOQt/uy3cpIBJXoT2IxoEOZD2NU8kwHF+ynRD2/h2WouMuA7Tm3aG91zcwEsit1aluey6DWq7g/jX5O8bZlqjyVbHR2tRvsETjq9oOBz+H4L3ExptLInjwrr3BrPo8IBeJEEXTMYg+rmIC+ODTttcc9pzK0mZGxc29GOa4efogr5U1zPLU1nkutVyKZNVXOhC5kDIDRDzoCnEslcgALRzl9xX84JGP0e9D5MW68tfoMfCXxMGRHr0pcAAAAASUVORK5CYII=" /></button>
+                        </form>
+
+                    </div>
+                    <div class="item-product" style=" width: 100%;  height: auto;"ng-repeat="item in cartSsSp2.items">
+                        <div class="img-product"
+                            style="margin-left: 30%; padding-top: 7% ;  width: 40%;  height: auto;">
+                            <a  th:href="@{|/product/details/{{item.productId}}|}">
+                                <img style="width: 100%; "
+                            th:src="@{/rest/upload/images/{{item.anhChinh}}}">
+                            </a>
+                        </div>
+                        <div class="price-product">
+
+                            <p style=" text-align: center; color: #cb1c22;font-size: 24px; font-weight: bold;
+                            line-height: 32px; ">Giá : {{item.gia | currency:"":0}} VNĐ</p>
+                        </div>
+                        <div class="name-product">
+
+                            <p style=" text-align: center; font-size: 24px; font-weight: bold;
+                            line-height: 32px; ">Tên : {{item.productName}}</p>
+                        </div>
+                       
+                            <a type="button" th:href="@{|/product/details/{{item.productId}}|}"  style="    color: #0664f9;
+                            position: relative;
+                            display: inline-block; font-size: 24px; margin-left: 45%;" class="muahang"><p>Xem chi tiết</p>
+                            </a>
+                       
+                          
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <hr>
+            <div class="row"style="margin-left: 240px;">
+
+                <div class="col-5" style="height:auto;">
+                    <div class="search" style="text-align: center; padding-top: 5% ;">
+                        <div class="item-product" style=" width: 100%; height: auto;">
+                            <table ng-repeat="item in cartSsSp1.items">
+                                <tr>
+                                    <th>Cung cấp</th>
+                                    <th>Thông số</th>
+                                </tr>
+                                <tr>
+                                    <td >Tên</td>
+                                    <td >{{item.productName}} </td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Loại</td>
+                                    <td >{{item.category.categoryName}} </td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Khối lượng</td>
+    
+                                    <td >{{item.khoiLuong}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Kích thước</td>
+                                    <td >{{item.kichThuoc}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Nhãn hàng</td>
+                                    <td >{{item.brand.brandName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>CPU</td>
+                                    <td >{{item.cpu.cpuName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>CPU Serie</td>
+                                    <td >{{item.cpuSerie.cpuSerieName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Màu sắc</td>
+                                    <td >{{item.color.colorName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Chip Đồ Họa</td>
+                                    <td >{{item.chipDoHoa.chipDoHoaName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Màn Hình</td>
+                                    <td >{{item.manHinh.manHinhName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>RAM</td>
+                                    <td >{{item.ram.ramName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Lưu Trữ</td>
+                                    <td >{{item.luuTru.luuTruName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Số cổng lưu trữ tối đa</td>
+                                    <td >{{item.soCongLuuTruToiDa.soCongLuuTruToiDaName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Công xuất hình</td>
+                                    <td >{{item.congXuatHinh.congXuatHinhName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Cổng kết nối</td>
+                                    <td >{{item.congKetNoi.congKetNoiName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Bàn phím</td>
+                                    <td >{{item.banPhim.banPhimName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Hệ Điều Hành</td>
+                                    <td >{{item.heDieuHanh.heDieuHanhName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Pin</td>
+                                    <td >{{item.pin.pinName}}</td>
+    
+    
+                                </tr>
+    
+    
+                            </table>
+                        </div>
+                       
+
+                    </div>
+                    
+                    <br>
+
+                </div>
+
+
+
+                <div class="col-5" style="height:auto;">
+                    <div class="search" style="text-align: center; padding-top: 5% ;">
+                        <div class="item-product" style=" width: 100%; height: auto;">
+                            <table ng-repeat="item in cartSsSp2.items">
+                                <tr>
+                                    <th>Cung cấp</th>
+                                    <th>Thông số</th>
+                                </tr>
+                                <tr>
+                                    <td>Tên</td>
+                                    <td >{{item.productName}} </td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Loại</td>
+                                    <td >{{item.category.categoryName}} </td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Khối lượng</td>
+    
+                                    <td >{{item.khoiLuong}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Kích thước</td>
+                                    <td >{{item.kichThuoc}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Nhãn hàng</td>
+                                    <td >{{item.brand.brandName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>CPU</td>
+                                    <td >{{item.cpu.cpuName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>CPU Serie</td>
+                                    <td >{{item.cpuSerie.cpuSerieName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Màu sắc</td>
+                                    <td >{{item.color.colorName}}</td>
+    
+                                </tr>
+                                <tr>
+                                    <td>Chip Đồ Họa</td>
+                                    <td >{{item.chipDoHoa.chipDoHoaName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Màn Hình</td>
+                                    <td >{{item.manHinh.manHinhName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>RAM</td>
+                                    <td >{{item.ram.ramName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Lưu Trữ</td>
+                                    <td >{{item.luuTru.luuTruName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Số cổng lưu trữ tối đa</td>
+                                    <td >{{item.soCongLuuTruToiDa.soCongLuuTruToiDaName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Công xuất hình</td>
+                                    <td >{{item.congXuatHinh.congXuatHinhName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Cổng kết nối</td>
+                                    <td >{{item.congKetNoi.congKetNoiName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Bàn phím</td>
+                                    <td >{{item.banPhim.banPhimName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Hệ Điều Hành</td>
+                                    <td >{{item.heDieuHanh.heDieuHanhName}}</td>
+    
+    
+                                </tr>
+                                <tr>
+                                    <td>Pin</td>
+                                    <td >{{item.pin.pinName}}</td>
+    
+    
+                                </tr>
+    
+    
+                            </table>
+                        </div>
+                       
+
+                    </div>
+                    
+                    <br>
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+</body>
+
+</html>

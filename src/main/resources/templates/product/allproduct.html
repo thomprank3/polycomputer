@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index ::  dynamic(~{::main})}">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+</head>
+
+<body>
+   <main>
+    <div class="boloc">
+        <h2>Bộ lọc</h2>
+        <hr>
+        <div class="loctheobrandn row" >
+            <b class="title col-2">Mức giá</b>
+            <div class="acction col-9" >
+                <a  th:href="@{|/product/all/tu10|}" class="accon">Từ 10 đến 20 triệu </a>
+                <a  th:href="@{|/product/all/tu20|}" class="accon">Từ 20 đến 30 triệu</a>
+                <a  th:href="@{|/product/all/tu30|}" class="accon">Từ 30 đến 40 triệu</a>
+                <a  th:href="@{|/product/all/tren40|}" class="accon">Trên 40 triệu</a>
+                
+            </div>
+        </div>
+        <div class="loctheobrandn row" >
+            <b class="title col-2">Hãng sản xuất</b>
+            <div class="acction col-9" >
+                <a th:each=" b : ${brand}" th:href="@{|/product/allproduct?cid=${b.brandId}|}" class="accon">[[${b.brandName}]]</a>
+                
+            </div>
+        </div>
+        <div class="loctheobrandn row" >
+            <b class="title col-2">Danh Mục</b>
+            <div class="acction col-9" >
+                <a th:each=" b : ${cates}" th:href="@{|/product/allproduct?cat=${b.categoryId}|}" class="accon">[[${b.categoryName}]]</a>
+                
+            </div>
+        </div>
+        <div class="loctheomau row">
+            <b class="title col-2">Màu sắc</b>
+            <div class="acction col-9">
+                <a th:each=" b : ${colors}" th:href="@{|/product/allproduct?col=${b.colorId}|}" class="accon">[[${b.colorName}]]  </a>
+        </div>
+        </div>
+        <div class="loctheosrcpu row">
+            <b class="title col-2">Mã CPU</b>
+            <div class="acction col-9">
+                <a th:each=" b : ${cpu}" th:href="@{|/product/allproduct?cpu=${b.cpuSerieId}|}" class="accon">[[${b.cpuSerieName}]]  </a>
+               
+            </div>
+        </div>
+        <div class="loctheoCHIPDOHOA row">
+            <b class="title col-2">Chip Đồ họa rời</b>
+            <div class="acction col-9">
+                <a th:each=" b : ${chips}" th:href="@{|/product/allproduct?chipdh=${b.chipDoHoaId}|}" class="accon">[[${b.chipDoHoaName}]]  </a>
+                
+            </div>
+        </div>
+        <div class="loctheoCHIPDOHOA row">
+            <b class="title col-2">dung lượng RAM</b>
+            <div class="acction col-9">
+                <a th:each=" b : ${rams}" th:href="@{|/product/allproduct?ram=${b.ramId}|}" class="accon">[[${b.ramName}]]  </a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="xapxeptheo">
+        <div class="xapxep row">
+            <b class="title col-2">Sắp xếp theo</b>
+            <div class="acction col-9">
+               
+               
+                <a  class="accon" th:href="@{|/product/all/giamgia|}">Khuyến mãi tốt nhất</a>
+                <a class="accon" th:href="@{|/product/all/moinhat20|}">Mới về</a>
+                <a class="accon" th:href="@{|/product/all/giam|}">Giảm giá dần </a>
+                <a class="accon" th:href="@{|/product/all/tang|}">Tăng giá dần</a>
+                <a class="accon" >Giá thấp nhất</a>
+                <a class="accon" >Giá cao nhất</a>  
+            
+            </div>
+        </div>
+    </div>
+    <div class="allproduct">
+        <div class="list-product">
+            <div class="product-item"  th:each=" all : ${all}">
+                <div class="product-top">
+                    <a href="" class="product-thumb"th:href="@{|/product/details/${all.productId}|}">
+                        <img th:src="@{|/rest/upload/images/${all.anhChinh}|}" style="width: 100%;" alt="">
+                    </a>
+                    <a th:href="@{|/product/details/${all.productId}|}" class="buy-now">Xem chi tiết</a>
+                    <button  class="sosanh"th:attr="ng-click=@{|cartSsSp1.add(${all.productId})|}">
+                        So sánh
+
+                    </button>
+                </div>
+                <p>[[${all.productName}]]</p>
+                
+                    
+                    <div >
+                   <th:block th:if="*{all.giamGia != NULL}">
+                    <!-- th:text="' Giảm :  ' +*{#numbers.formatDecimal(all.giamGia,0,'COMMA', 0, 'POINT')} + ' đ'" -->
+                    <p style="text-decoration-line:line-through;">giá : [[${#numbers.formatDecimal(all.gia,0,'COMMA', 0, 'POINT')}]]  VND</p> 
+
+                    <b    >
+                    
+                        [[' Giảm còn : ' + ${#numbers.formatDecimal(all.gia  - (all.gia * all.giamGia/100), 1, 'DEFAULT', 0, 'DEFAULT')} + '' +'VNĐ']]
+                    </b>
+                </th:block>
+                <th:block th:if="*{all.giamGia == NULL}">
+                    <b>giá : [[${#numbers.formatDecimal(all.gia,0,'COMMA', 0, 'POINT')}]]  VND</b> 
+
+                </th:block>
+            </div>
+            </div>
+           
+        </div>
+        <nav aria-label="Page navigation example" style="margin-left: 45%; margin-top: 50px;">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+    </div>
+   </main>
+</body>
+
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index ::  dynamic(~{::main})}">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+    <style>
+        /* .rating{
+      position: absolute;
+      transform: translate(-50%,-50%);
+      display: flex;
+  }
+.rating label{
+display: block;
+cursor: pointer;
+width: 50px;
+
+}
+.rating input{
+display: none;
+
+}
+.rating label:before{
+
+    content: '\f005';
+    font-family: fontAwesome;
+    position: relative;
+    display: block;
+    font-size: 50px;
+} */
+    </style>
+</head>
+
+<body>
+    <main th:object="${item}">
+
+        <div class="all">
+            <div class="detai row">
+                <div class="detai-item col-4">
+                    <div class="detai-img ">
+                        <img id="main-img" th:src="@{'/rest/upload/images/'+*{anhChinh}}" alt="">
+                    </div>
+                    <hr>
+                    <div class="anhphu" id="p">
+                        <img th:src="@{'/rest/upload/images/'+*{anhPhu1}}" alt="">
+                        <img th:src="@{'/rest/upload/images/'+*{anhPhu2}}" alt="">
+                        <img th:src="@{'/rest/upload/images/'+*{anhPhu3}}" alt="">
+                        <img th:src="@{'/rest/upload/images/'+*{anhPhu4}}" alt="">
+
+
+
+
+                        <!--productImage-->
+
+                    </div>
+
+                </div>
+
+                <div class="detai-thongtin col-sm-3 ">
+                    <h3 class="detai-tieude" style="height: 120px;    font-size: 1.4rem;" th:text="*{productName}">
+                    </h3>
+                    <p class="detai-thuonghieu" style="height: 36px;" th:text="' Loại : ' + *{category.categoryName}">
+                    </p>
+                    <th:block th:if="*{giamGia != NULL}">
+                        <p class="detai-gia"
+                            style="text-decoration-line:line-through; font-size: 16px; color: rgb(138, 139, 139);"
+                            th:text="' Giá :  ' +*{#numbers.formatDecimal(gia,0,'COMMA', 0, 'POINT')} + ' đ'"></p>
+                        <p class="detai-gia" style=" font-size: 18px; color: rgb(29, 4, 255);"
+                            th:text="' Giảm còn :  ' +  *{#numbers.formatDecimal(gia - (gia * giamGia/100),0,'COMMA', 0, 'POINT')} + ' đ'">
+                        </p>
+                    </th:block>
+                    <th:block th:if="*{giamGia == NULL}">
+                        <p class="detai-gia" style=" font-size: 18px; color: rgb(25, 0, 255);"
+                            th:text="' Giá :  ' +*{#numbers.formatDecimal(gia,0,'COMMA', 0, 'POINT')} + ' đ'"></p>
+                    </th:block>
+                    <hr>
+                    <div class="quatangkem">
+                        <h3 class="title"> Quà tặng kèm</h3>
+                        <th:block th:if="*{gift == NULL}">
+                        </th:block>
+                        <th:block th:if="*{gift != NULL}">
+                            <img th:src="@{'/rest/upload/images/'+*{gift.giftImage}}" alt="">
+                        </th:block>
+
+                        <th:block th:if="*{gift == NULL}">
+                            <p class="thongtinquatang">Không có</p>
+                        </th:block>
+                        <th:block th:if="*{gift != NULL}">
+                            <p class="thongtinquatang" th:text="*{gift.giftName}"></p>
+                        </th:block>
+
+                        <hr>
+                    </div>
+
+                    <div class="button-buy">
+
+                        <th:block th:if="${#request.remoteUser}">
+                            <button type="button" th:attr="ng-click=@{|cart.addAndBuy(*{productId})|}" class="muahang">
+                                <p>Mua ngay</p>
+                            </button>
+                            <button type="button" th:attr="ng-click=@{|cart.add(*{productId})|}" class="themvaogio">
+                                <p>thêm vào giỏ hàng</p>
+                            </button>
+                            <!-- <button class="themvaogio" style="width: 100%;"
+                                th:attr="ng-click=@{|cart.add(*{productId})|}">
+                                <p>thêm vào giỏ hàng</p>
+                            </button>
+                            <button class="themvaogio" style="width: 100%;"
+                                th:attr="ng-click=@{|cart.addAndBuy(*{productId})|}">
+                                <p>Mua ngay</p>
+                            </button> -->
+                            <!-- dung if neu ma dang nhap roi thi hien thi   -->
+
+                        </th:block>
+                        <th:block th:unless="${#request.remoteUser}">
+                            <a type="button" th:href="@{/security/login/form}" class="muahang">
+                                <p>Mua ngay</p>
+                            </a>
+                            <a class="themvaogio" th:href="@{/security/login/form}">
+                                <p>thêm vào giỏ hàng</p>
+                            </a>
+
+
+                            <!-- nguoc lai neu chua co hien thi dang nhap -->
+                        </th:block>
+
+                    </div>
+                </div>
+                <div class="detai-thongtinsanpham col-sm-4 ">
+                    <h3 class="title-thongtin">Thông tin sản phẩm</h3>
+                    <table>
+                        <tr>
+                            <th>Cung cấp</th>
+                            <th>Thông số</th>
+                        </tr>
+                        <tr>
+                            <td>Loại</td>
+                            <td th:text="*{category.categoryName}"> </td>
+
+                        </tr>
+                        <tr>
+                            <td>Khối lượng</td>
+
+                            <td th:text="*{khoiLuong}"></td>
+
+                        </tr>
+                        <tr>
+                            <td>Kích thước</td>
+                            <td th:text="*{kichThuoc}"></td>
+
+                        </tr>
+                        <tr>
+                            <td>Nhãn hàng</td>
+                            <td th:text="*{brand.brandName}"></td>
+
+                        </tr>
+                        <tr>
+                            <td>CPU</td>
+                            <td th:text="*{cpu.cpuName}"></td>
+
+                        </tr>
+                        <tr>
+                            <td>Chip Đồ Họa</td>
+                            <td th:text="*{chipDoHoa.chipDoHoaName}"></td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Màn Hình</td>
+                            <td th:text="*{manHinh.manHinhName}"></td>
+
+
+                        </tr>
+                        <tr>
+                            <td>RAM</td>
+                            <td th:text="*{ram.ramName}"></td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Lưu Trữ</td>
+                            <td th:text="*{luuTru.luuTruName}"></td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Hệ Điều Hành</td>
+                            <td th:text="*{heDieuHanh.heDieuHanhName}"></td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Pin</td>
+                            <td th:text="*{pin.pinName}"></td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Số cổng</td>
+                            <td th:text="*{soCongLuuTruToiDa.soCongLuuTruToiDaName}"></td>
+
+
+                        </tr>
+
+                    </table>
+                    <a href="" data-target="#modelId" data-toggle="modal" style="margin-left: 40%;margin-top: 10px;">Xem
+                        thêm thông tin</a>
+                </div>
+
+
+                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="width: 759px;">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Thông tin cấu hình</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <table>
+                                    <tr>
+                                        <th>Cung cấp</th>
+                                        <th>Thông số</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Tên</td>
+                                        <td th:text="*{productName}"> </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Loại</td>
+                                        <td th:text="*{category.categoryName}"> </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Khối lượng</td>
+
+                                        <td th:text="*{khoiLuong}"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Kích thước</td>
+                                        <td th:text="*{kichThuoc}"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Nhãn hàng</td>
+                                        <td th:text="*{brand.brandName}"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>CPU</td>
+                                        <td th:text="*{cpu.cpuName}"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>CPU Serie</td>
+                                        <td th:text="*{cpuSerie.cpuSerieName}"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Màu sắc</td>
+                                        <td th:text="*{color.colorName}"></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Chip Đồ Họa</td>
+                                        <td th:text="*{chipDoHoa.chipDoHoaName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Màn Hình</td>
+                                        <td th:text="*{manHinh.manHinhName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>RAM</td>
+                                        <td th:text="*{ram.ramName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Lưu Trữ</td>
+                                        <td th:text="*{luuTru.luuTruName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Số cổng lưu trữ tối đa</td>
+                                        <td th:text="*{soCongLuuTruToiDa.soCongLuuTruToiDaName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Công xuất hình</td>
+                                        <td th:text="*{congXuatHinh.congXuatHinhName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Cổng kết nối</td>
+                                        <td th:text="*{congKetNoi.congKetNoiName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Bàn phím</td>
+                                        <td th:text="*{banPhim.banPhimName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Hệ Điều Hành</td>
+                                        <td th:text="*{heDieuHanh.heDieuHanhName}"></td>
+
+
+                                    </tr>
+                                    <tr>
+                                        <td>Pin</td>
+                                        <td th:text="*{pin.pinName}"></td>
+
+
+                                    </tr>
+
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!-- th:each=" rai : ${item1}"th:text="${rai.username}"  th:field="${rai.noiDung}" -->
+
+
+            <div class="mota">
+                <h3 class="heading">Bình luận</h3>
+                <div style="margin-left: 5%;" th:each=" star : ${star}">
+                    <h3 class="tieudebinhluan">Đánh giá sản phẩm [[*{productName}]]</h3>
+                    <br>
+                    <div class="">
+                        <h2 style="font-size: 48px;display: inline-block;">[[${star[0]}]]</h2>
+                        <p style="display: inline-block;    font-size: 32px;
+                            color: #9e9e9e;
+                            text-align: center;
+                            line-height: 40px;">/5</p>
+                    </div>
+
+                    <br>
+                    <h3>
+                        <th:block th:if="${star[0] == 5}">
+                            <span class="number-rating" id="star">
+
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+
+                            </span>
+                        </th:block>
+                        <th:block th:if="${star[0] == 4}">
+                            <span class="number-rating" id="star">
+
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+
+                            </span>
+                        </th:block>
+                        <th:block th:if="${star[0] == 3}">
+                            <span class="number-rating" id="star">
+
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            </span>
+                        </th:block>
+
+                        <th:block th:if="${star[0] == 2}">
+                            <span class="number-rating" id="star">
+
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            </span>
+                        </th:block>
+                        <th:block th:if="${star[0]  == 1}">
+                            <span class="number-rating" id="star">
+
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            </span>
+                        </th:block>
+                    </h3>
+                    <br>
+                    <p>Tổng [[${star[1]}]] lượt đánh giá từ người dùng</p>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-5" style="margin-left: 5%; margin-top: 30px;">
+                        <div class="item-comment" style="background-color: antiquewhite; margin-top: 20px;"
+                            th:each=" rai : ${item1}">
+                            <div class="binhluan row">
+                                <div class="stars-outer col-5" style="margin-left: 1%;">
+                                    <div class="stars-inner"></div>
+
+
+                                    <th:block th:if="${rai.starId == 5}">
+                                        <span class="number-rating" id="star">
+
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+
+                                        </span>
+                                    </th:block>
+                                    <th:block th:if="${rai.starId == 4}">
+                                        <span class="number-rating" id="star">
+
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+
+                                        </span>
+                                    </th:block>
+                                    <th:block th:if="${rai.starId == 3}">
+                                        <span class="number-rating" id="star">
+
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                        </span>
+                                    </th:block>
+
+                                    <th:block th:if="${rai.starId == 2}">
+                                        <span class="number-rating" id="star">
+
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                        </span>
+                                    </th:block>
+                                    <th:block th:if="${rai.starId == 1}">
+                                        <span class="number-rating" id="star">
+
+                                            <img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                                        </span>
+                                    </th:block>
+
+
+
+
+
+
+                                </div>
+                                <p class="col-6" style="right: 2px;" th:text="${rai.createdAt}"></p>
+
+                            </div>
+                            <div class="row" style="margin-left: 1% ;height: auto;">
+                                <div class="col-1">
+                                 <img style="width: 90px; height: auto;" th:src="@{|/rest/upload/images/${rai.account.avatar}|}" alt="">
+                                </div>
+                                <div class="col-10">
+                                 <p class="title-noidung " style="margin-left: 11%;color: #4caf50 ">Đánh giá bởi :
+                                     [[${rai.account.username}]]</p>
+                                 <br>
+                                 <b style="margin-top: 40px; margin-left: 13%;" th:text="${rai.noiDung}"> </b>
+                                </div>
+                            </div>
+                             
+                             <hr>
+                             <div class="row"  style="margin-left: 1% ;height: auto;"> 
+                               
+                               
+                                <th:block th:if="${rai.reply == NULL} ">
+                           
+                                 </th:block>
+                              <th:block th:unless="${rai.reply == NUlls} ">
+                            <div class="col-1">
+                                <img src="/images/logos/logo2.png" alt="">
+                            </div>
+                           <div class="col-10">
+                            <p class="title-noidung " style="margin-left: 11%;color: #4caf50 ">Phản hồi từ Poly' Computer : 
+                            </p>
+                        <br>
+                        <b style="margin-top: 40px; margin-left:  13%;" th:text="${rai.reply}"> </b>
+                           </div>
+                        </th:block>
+
+                                 
+                                 
+                             </div>
+                        </div>
+
+                        <!-- <script>
+                            const ratings ={
+                                binhluan : document.getElementById("star").value,
+                                           }
+                                const starsTotal = 5;
+
+                               // run getRai khi load 
+                               document.addEventListener('load',getRatings);
+
+                                function getRatings(){
+
+                                    for(let rating in ratings){
+                                       // console.log(ratings[rating]);
+                                       //get
+                                       const starPercentage = (ratings[rating] / starsTotal) * 100;
+                                        //round 10
+                                        const starPer = '${Math.round(starPercentage / 10) * 10}%';
+                                     //   set whit starst true
+                                     document.querySelector('${rating} .stars-inner').style.width = starPer;
+
+                                
+                                    }
+                                }
+                            </script> -->
+
+
+                    </div>
+                    <div class="col-3">
+                        <h3 style="font-weight: bold;">Bình luận của bạn về sản phẩm <div ng-model="rating.productId" hidden
+                                id="productId" style="color: #fff;" name="productId">[[${productId}]]</div>
+                        </h3>
+                        <br>
+
+
+                        <!-- <div  class="rating" >
+                            <input type="radio" ng-model="rating.starId" name="star" id="star1" value="1"   > 
+                            <label for="star1"></label>
+                            <input type="radio" ng-model="rating.starId" name="star" id="star2" value="2"   > 
+                            <label for="star2"></label>
+                            <input type="radio" ng-model="rating.starId" name="star" id="star3" value="3"   > 
+                            <label for="star3"></label>
+                            <input type="radio" ng-model="rating.starId" name="star" id="star4" value="4"   > 
+                            <label for="star4"></label>
+                            <input type="radio" ng-model="rating.starId" name="star" id="star5" value="5"   > 
+                            <label for="star5"></label>
+                         </div> -->
+
+
+
+
+                        <div class="form-control" style="width: 140%;">
+
+                            <input type="radio" ng-model="rating.starId" value="1">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+
+                            </input>
+                            <input type="radio" ng-model="rating.starId" value="2">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+
+                            </input>
+                            <input type="radio" ng-model="rating.starId" value="3">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+
+                            </input>
+                            <input type="radio" ng-model="rating.starId" value="4">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            </input>
+                            <input type="radio" ng-model="rating.starId" value="5">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAZ5JREFUSEu1VUFWwjAQnal7mnACOIF4AuEE6g1wIe1OPIFwAlm2uBBv4A3EG+AJ7AlIws6FHV/qQwJNSYqSZZP8Pz//zxThyAuPjA+1CFYRXxAAhak48y3Mm2AVsz4RPmlgRLpuJHLmQ+JNIGM+R4JzDUoAc5aK3r8RiJh1A8JXEzBH6vFEzl0kXgpUxF8A4GILDPE5TJb9PxOImLUCwg8bUI7U5onM9pH8KlgN2CUBnAIGLQJqFWYCMADoOKrUyZI/5zEDyjMEeG9MpVa9iamKOLnk1tkPU1EUv1FgxLAOkO2sGeMtk82sH0iiEGlo9kgpRX8gUXlOXf4oF2Zx1pgeQGIF3/Jg90lU1JwA0K3PU+1ruspGM0eDk4ToLpzKidXwqst1YksIbywRXW8C2+xxqcg/ifOZLBrOabIasCEgPpRAEcfFN6L7EhDR1bp73QQ7w023/ldO/XUExQ3rnAQ4K0bLelUMP6vJKuJaaljcRRyHyXJkeyIVN0eGmixMRdvrifSvUR80q67yYK1G7zdSURqMXv8Dl8H79o9O8A29QLQZFojhdgAAAABJRU5ErkJggg==" />
+                            </input>
+
+                        </div>
+
+                        <br>
+
+                        <br>
+                        <div class="form-control" id="username" name="username">[[${#request.remoteUser}]]</div>
+                        <br>
+                        <textarea id="noiDung" ng-model="rating.noiDung" name="noiDung" cols="150" rows="10" style="    width: 180%;"></textarea>
+                        <br>
+                        <button class="btn " ng-click="rating.binhluana()"
+                            style="background-color: #640310;color: #fff; margin-top: 50px;"><i class="fas fa-save"></i>
+                            <span>Gửi đánh giá</span>
+                        </button>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+        <div class="allproduct">
+            <h3 class="heading"> Sản phẩm cùng hãng</h3>
+            <div class="list-product">
+                <div class="product-item" th:each=" product : *{brand.products}">
+                    <div class="product-top">
+                        <a href="" class="product-thumb" th:href="@{|/product/details/${product.productId}|}">
+                            <img th:src="@{|/rest/upload/images/${product.anhChinh}|}" alt="">
+                        </a>
+
+                        <a href="" class="buy-now" th:href="@{|/product/details/${product.productId}|}">Mua ngay</a>
+                    </div>
+                    <p th:text="${product.productName}"></p>
+                    <th:block th:if="${product.giamGia != NULL}">
+                        <p style="text-decoration-line:line-through; text-align: center;">Giá :
+                            [[${#numbers.formatDecimal(product.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+
+                        </p>
+                        <b class="gia" style=" margin-left: 70px;">[[' Giảm còn : ' +
+                            ${#numbers.formatDecimal(product.gia - (product.gia * product.giamGia/100), 1, 'DEFAULT', 0,
+                            'DEFAULT')} + '' +'VNĐ']]</b>
+                    </th:block>
+                    <th:block th:if="${product.giamGia == NULL}">
+                        <b>Giá : [[${#numbers.formatDecimal(product.gia,0,'COMMA', 0, 'POINT')}]] VNĐ
+
+                        </b>
+
+                    </th:block>
+                </div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+        <div class="danhmuc">
+            <h3 class="heading"> Các nhãn hàng nổi tiếng</h3>
+            <div class="list-danhmuc">
+
+                <div class="danhmuc-item" th:each=" b : ${brand}">
+                    <a th:href="@{|/product/brand?cid=${b.brandId}|}">
+                        <img th:src="@{|/rest/upload/images/${b.brandImage}|}" alt="">
+
+                    </a>
+                    <p>[[${b.brandName}]]</p>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

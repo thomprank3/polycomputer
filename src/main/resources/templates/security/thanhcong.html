@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index ::  dynamic(~{::main})}">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+
+</head>
+
+<body>
+    <main>
+       
+        <h2>Xác nhận thành công , chúc mừng bạn !</h2>
+        <h4>bây giờ bạn có thể đăng nhập bằng đường link bên dưới </h4>
+        <p> <a th:href="@{/security/login/form}">Đăng nhập</a></p>
+        
+    </main>
+</body>
+
+</html>

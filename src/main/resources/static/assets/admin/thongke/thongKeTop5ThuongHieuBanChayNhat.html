@@ -1,0 +1,33 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h4 mb-0 text-gray-800" ><a class="text-darkblue-800" style="cursor: pointer;" href="#">Trang chủ</a> > Thống Kê > 5 Thương Hiệu Bán Chạy Nhất</h1>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Thống Kê 5 Thương Hiệu Bán Chạy Nhất</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Mã Thương Hiệu</th>
+                <th scope="col">Ảnh</th>
+                <th scope="col">Tên Thương Hiệu</th>
+                <th scope="col">Số Lượng Bán Ra</th>
+                <th scope="col">Doanh Thu</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in top5ThuongHieuBanChay">
+                    <th scope="row">{{item[0]}}</th>
+                    <th scope="row" style="text-align: center;">
+                      <img src="/rest/upload/images/{{item[1]}}" style="width: auto;height: 97px;">
+                      <!-- src="{{'/assets/images/' + item[1]}}"  -->
+                    </th>
+                    <th scope="row">{{item[2]}}</th>
+                    <th scope="row">{{item[3]}}</th>
+                    <th scope="row">{{item[4] | currency : ''}} VNĐ</th>
+            </tbody> 
+          </table>
+         
+    </div>
+</div>

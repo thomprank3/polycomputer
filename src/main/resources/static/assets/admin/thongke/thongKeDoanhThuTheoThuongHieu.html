@@ -1,0 +1,45 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h4 mb-0 text-gray-800" ><a class="text-darkblue-800" style="cursor: pointer;" href="#">Trang chủ</a> > Thống Kê > Doanh Thu Của Từng Thương Hiệu</h1>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Doanh Thu Của Từng Thương Hiệu</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Tên Thương Hiệu</th>
+                <th scope="col">Số Lượng Bán Ra</th>
+                <th scope="col">Tổng Doanh Thu</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in thongKeDoanhThuTheoThuongHieu">
+                    <th scope="row">{{item[0]}}</th>
+                    <th scope="row">{{item[1]}}</th>
+                    <th scope="row">{{item[2] | currency : ''}} VNĐ</th>
+            </tbody> 
+          </table>
+          <div class="row">
+            <div class="col-sm-6">
+              Hiển thị Thương Hiệu thứ <span>{{(pager2.page+1)*5-4}}</span> đến {{(pager2.page+1)*5}} trong danh sách Thương Hiệu
+            </div>
+            <div class="col-sm-6">
+              <button ng-click="pager2.first()" class="btn btn-primary">
+                  <i class="fas fa-step-backward"></i>
+              </button>
+              <button ng-click="pager2.prev()" class="btn btn-primary">
+                  <i class="fas fa-backward"></i>
+              </button>
+              <button class="btn btn-success">{{pager2.page + 1}}/{{pager2.count}} trang</button>
+              <button ng-click="pager2.next()" class="btn btn-primary">
+                  <i class="fas fa-forward"></i>
+              </button>
+              <button ng-click="pager2.last()" class="btn btn-primary">
+                  <i class="fas fa-step-forward"></i>
+              </button>
+            </div>
+        </div>
+    </div>
+</div>
