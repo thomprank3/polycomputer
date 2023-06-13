@@ -1,0 +1,51 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-comment"></i> Trả lời bình luận</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Sản Phẩm:</label>
+                    <input type="text" class="form-control" placeholder="" ng-model="form.product.productName" disabled>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Số Sao:</label>
+                    <select ng-model="form.starId" class="form-control" disabled>
+                        <option  ng-value="1">1</option>
+                        <option  ng-value="2">2</option>
+                        <option  ng-value="3">3</option>
+                        <option  ng-value="4">4</option>
+                        <option  ng-value="5">5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="mota">Nội dung bình luận:</label>
+                    <textarea ng-model="form.noiDung" id="mota" style="width:100%; height: 140px;" class="form-control" disabled></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="mota">Nội dung trả lời bình luận của shop:</label>
+                    <textarea ng-model="form.reply" id="mota" style="width:100%; height: 140px;" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button ng-click="updateReply()" class="btn btn-success">
+            Trả lời
+        </button>
+        <button ng-click="resetReply()" class="btn btn-info">
+            Reset
+        </button>
+    </div>
+</div>

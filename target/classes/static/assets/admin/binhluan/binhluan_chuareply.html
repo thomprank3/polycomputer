@@ -1,0 +1,58 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Danh sách bình luận chưa trả lời</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+              <tr style="width: 600px; overflow: scroll;">
+                <th scope="col">Mã Bình Luận</th>
+                <th scope="col">Sản Phẩm</th>
+                <th scope="col">Số Sao</th>
+                <th scope="col">Nội Dung</th>
+                <th scope="col">Người Bình Luận</th>
+                <th scope="col">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody ng-if="selectBinhLuanChuaReply.length > 0">
+                <tr ng-repeat="item in pager2.selectBinhLuanChuaReply">
+                    <th scope="row">{{item.ratingId}}</th>
+                    <th scope="row">{{item.product.productName}}</th>
+                    <th scope="row">{{item.starId}}</th>
+                    <th scope="row">{{item.noiDung}}</th>
+                    <th scope="row">{{item.account.fullName}}</th>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <button ng-click="edit(item)" class="btn btn-warning"><i class="fas fa-camera fa-xs"></i></button>
+                            <button ng-click="reply(item)" class="btn btn-primary"><i class="fas fa-comment"></i></button>
+                            <button ng-click="delete(item)" class="btn btn-danger"><i class="fas fa-trash fa-xs"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody> 
+          </table>
+          <p style="text-align: center; color: darkblue; font-weight: 800;" ng-if="!selectBinhLuanChuaReply.length > 0">Chưa có bình luận</p>
+          <div class="row" ng-if="selectBinhLuanChuaReply.length > 0">
+              <div class="col-sm-6">
+                Hiển thị bình luận thứ <span>{{(pager2.page+1)*5-4}}</span> đến {{(pager2.page+1)*5}} trong danh sách Bình Luận
+              </div>
+              <div class="col-sm-6">
+                <button ng-click="pager.first()" class="btn btn-primary">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button ng-click="pager.prev()" class="btn btn-primary">
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button class="btn btn-success">{{pager2.page + 1}}/{{pager2.count}} trang</button>
+                <button ng-click="pager.next()" class="btn btn-primary">
+                    <i class="fas fa-forward"></i>
+                </button>
+                <button ng-click="pager.last()" class="btn btn-primary">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+              </div>
+          </div>
+         
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<style>
+    table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+</style>
+<div class="card shadow mb-4" style="width: 1120px;">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Danh sách Sản Phẩm</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <form>
+                    <div class="form-inline float-left">
+                        <input type="text"class="form-control mr-2" name="name" id="name" ng-model="find.productName"
+                            aria-describedby="helpId" >
+                        <button class="btn btn-outline-success my-2 my-sm-0 mr-2" ng-click="find.finAndFills()">Tìm kiếm</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6 form-group">
+                <button class="btn btn-primary float-right" ng-click="goToAdd()">Thêm Sản Phẩm</button>
+        </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+              <tr style="width: 600px; overflow: scroll;">
+                <th scope="col">Mã SP</th>
+                <th scope="col">Hình</th>
+                <th scope="col">Tên Sản Phẩm</th>
+                <th scope="col">Giá</th>
+                <th scope="col" style="width: 40px;">Danh Mục</th>
+                <th scope="col">Thương Hiệu</th>
+                <th scope="col">CPU</th>
+                <th scope="col">Màu</th>
+                <th scope="col">Màn Hình</th>
+                <th scope="col">RAM</th>
+                <th scope="col">Hệ Điều Hành</th>
+                <th scope="col">Pin</th>
+                <th scope="col">Lưu Trữ</th>
+                <th scope="col">Chip Đồ Họa</th>
+                <th scope="col">Cổng Xuất Hình</th>
+                <th scope="col">Cổng Kết Nối</th>
+                <th scope="col">Bảo Hành</th>
+                <th scope="col">Kích Thước</th>
+                <th scope="col">Khối Lượng</th>
+                <th scope="col">Hành động</th>
+              </tr>
+            </thead>
+            <tbody ng-if="items.length > 0">
+                <tr ng-repeat="item in pager.items">
+                    <td>{{item.productId}}</td>
+                    <td scope="row" style="text-align: center;">
+                        <img src="/rest/upload/images/{{item.anhChinh}}"  style="width: auto;height: 97px;">
+                    </td>
+                    <!-- <td>{{item.anhChinh}}</td> -->
+                    <td>{{item.productName}}</td>
+                    <td>{{item.gia | currency : ''}} VNĐ</td>
+                    <td>{{item.category.categoryName}}</td>
+                    <td>{{item.brand.brandName}}</td>
+                    <td>{{item.cpu.cpuName}}</td>
+                    <td>{{item.color.colorName}}</td>
+                    <td>{{item.manHinh.manHinhName}}</td>
+                    <td>{{item.ram.ramName}}</td>
+                    <td>{{item.heDieuHanh.heDieuHanhName}}</td>
+                    <td>{{item.pin.pinName}}</td>
+                    <td>{{item.luuTru.luuTruName}}</td>
+                    <td>{{item.congXuatHinh.congXuatHinhName}}</td>
+                    <td>{{item.chipDoHoa.chipDoHoaName}}</td>
+                    <td>{{item.congKetNoi.congKetNoiName}}</td>
+                    <td>{{item.baoHanh + ' Tháng'}}</td>
+                    <td>{{item.kichThuoc}}</td>
+                    <td>{{item.khoiLuong}}</td>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <button ng-click="edit(item)" class="btn btn-warning"><i class="fas fa-camera fa-xs"></i></button>
+                            <button ng-click="delete(item)" class="btn btn-danger"><i class="fas fa-trash fa-xs"
+                                    aria-hidden="true"></i></button>
+                        </div>
+                    </td>
+            </tbody> 
+          </table>
+          <p style="text-align: center; color: darkblue; font-weight: 800;" ng-if="!items.length > 0">Chưa có sản phẩm</p> 
+          <div class="row" ng-if="items.length > 0">
+            <div class="col-sm-6">
+              Hiển thị Sản Phẩm thứ <span>{{(pager.page+1)*5-4}}</span> đến {{(pager.page+1)*5}} trong danh sách Sản Phẩm
+            </div>
+            <div class="col-sm-6">
+              <button ng-click="pager.first()" class="btn btn-primary">
+                  <i class="fas fa-step-backward"></i>
+              </button>
+              <button ng-click="pager.prev()" class="btn btn-primary">
+                  <i class="fas fa-backward"></i>
+              </button>
+              <button class="btn btn-success">{{pager.page + 1}}/{{pager.count}} trang</button>
+              <button ng-click="pager.next()" class="btn btn-primary">
+                  <i class="fas fa-forward"></i>
+              </button>
+              <button ng-click="pager.last()" class="btn btn-primary">
+                  <i class="fas fa-step-forward"></i>
+              </button>
+            </div>
+        </div>
+         
+    </div>
+</div>

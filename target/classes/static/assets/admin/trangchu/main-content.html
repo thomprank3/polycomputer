@@ -1,0 +1,281 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-gray-800">Trang chủ</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Xuất file Excel</a>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Thu nhập (Hàng tháng)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{hienThiDoanhThuThang | currency : ''}} VNĐ
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Thu nhập (Hàng năm)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{hienThiDoanhThuNam | currency : ''}} VNĐ
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Đơn hàng đã giao thành công
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <a class="h5 mb-0 mr-3 font-weight-bold text-gray-800" style="cursor: pointer;"
+                                    href="#!/order">{{hienThiSoDonHangThanhCong}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Đơn hàng chờ xác nhận</div>
+                        <a class="h5 mb-0 font-weight-bold text-gray-800" style="cursor: pointer;"
+                            href="#!/order">{{hienThiSoDonHangChuaXacNhan}}</a>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-bell fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Khách hàng mới trong tháng</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{hienThiSoNguoiDungMoiTrongThang}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Số lượng thương hiệu</div>
+                        <a class="h5 mb-0 font-weight-bold text-gray-800" style="cursor: pointer;"
+                        href="#!/brand">{{hienThiSoLuongThuongHieu}}
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-desktop fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Số lượng sản phẩm</div>
+                        <a class="h5 mb-0 font-weight-bold text-gray-800" style="cursor: pointer;"
+                            href="#!/product">{{hienThiSoLuongSanPham}}</a>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-store fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Yêu cầu đổi trả chưa xác
+                                nhận
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <a class="h5 mb-0 mr-3 font-weight-bold text-gray-800" style="cursor: pointer;"
+                                        href="#!/doitra">{{hienThiYeuCauDoiTra}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-exclamation fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<!-- Content Row -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list text-black-300"></i> Các bình luận mới trong tuần</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr style="width: 600px; overflow: scroll;">
+                            <th scope="col">Mã Bình Luận</th>
+                            <th scope="col">Sản Phẩm</th>
+                            <th scope="col">Số Sao</th>
+                            <th scope="col">Nội Dung</th>
+                            <th scope="col">Người Bình Luận</th>
+                            <th scope="col">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-if="items.length > 0">
+                        <tr ng-repeat="item in pager.items">
+                            <th scope="row">{{item.ratingId}}</th>
+                            <th scope="row">{{item.product.productName}}</th>
+                            <th scope="row">{{item.starId}}</th>
+                            <th scope="row">{{item.noiDung}}</th>
+                            <th scope="row">{{item.account.fullName}}</th>
+                            <td>
+                                <div class="btn-group btn-group-xs">
+                                    <a class="h5 mb-0 font-weight-bold text-gray-800" href="#!/binhluan">
+                                        <button class="btn btn-primary">
+                                            <i class="fas fa-comment"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center; color: darkblue; font-weight: 800;" ng-if="!items.length > 0">Chưa có bình luận mới</p>
+                <div class="row" ng-if="items.length > 0">
+                    <div class="col-sm-6">
+                        Hiển thị bình luận mới thứ <span>{{(pager.page+1)*5-4}}</span> đến {{(pager.page+1)*5}} trong
+                        danh sách bình luận mới
+                    </div>
+                    <div class="col-sm-6">
+                        <button ng-click="pager.first()" class="btn btn-primary">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button ng-click="pager.prev()" class="btn btn-primary">
+                            <i class="fas fa-backward"></i>
+                        </button>
+                        <button class="btn btn-success">{{pager.page + 1}}/{{pager.count}} trang</button>
+                        <button ng-click="pager.next()" class="btn btn-primary">
+                            <i class="fas fa-forward"></i>
+                        </button>
+                        <button ng-click="pager.last()" class="btn btn-primary">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-dollar-sign text-darkblue-300"></i> Tổng Quan Về Thu Nhập</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-list text-black-300"></i> Doanh Thu Từng Danh Mục</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+                <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-primary"></i> Gaming
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i> Công sở
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-info"></i> Khác
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h4 mb-0 text-gray-800" ><a class="text-darkblue-800" style="cursor: pointer;" href="#">Trang chủ</a> > Thống Kê > Doanh Thu Của Từng Danh Mục</h1>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Doanh Thu Của Từng Danh Mục</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Tên Danh Mục</th>
+                <th scope="col">Số Lượng Bán Ra</th>
+                <th scope="col">Tổng Doanh Thu</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in thongKeDoanhThuTheoDanhMuc">
+                    <th scope="row">{{item[0]}}</th>
+                    <th scope="row">{{item[1]}}</th>
+                    <th scope="row">{{item[2] | currency : ''}} VNĐ</th>
+            </tbody> 
+          </table>
+          <div class="row">
+            <div class="col-sm-6">
+              Hiển thị Danh Mục thứ <span>{{(pager1.page+1)*5-4}}</span> đến {{(pager1.page+1)*5}} trong danh sách Danh Mục
+            </div>
+            <div class="col-sm-6">
+              <button ng-click="pager1.first()" class="btn btn-primary">
+                  <i class="fas fa-step-backward"></i>
+              </button>
+              <button ng-click="pager1.prev()" class="btn btn-primary">
+                  <i class="fas fa-backward"></i>
+              </button>
+              <button class="btn btn-success">{{pager1.page + 1}}/{{pager1.count}} trang</button>
+              <button ng-click="pager1.next()" class="btn btn-primary">
+                  <i class="fas fa-forward"></i>
+              </button>
+              <button ng-click="pager1.last()" class="btn btn-primary">
+                  <i class="fas fa-step-forward"></i>
+              </button>
+            </div>
+        </div>
+    </div>
+</div>

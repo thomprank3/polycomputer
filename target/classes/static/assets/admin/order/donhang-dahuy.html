@@ -1,0 +1,67 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-fw fa-list"></i> Danh Sách Đơn Hàng Đã Hủy</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6">
+                
+            </div>
+            <div class="col-sm-6 form-group">
+                    <button class="btn btn-primary float-right" ng-click="exportHuy()">Xuất file excel</button>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Mã Đơn Hàng</th>
+                <th scope="col">Địa Chỉ Giao Hàng</th>
+                <th scope="col">Tổng Tiền</th>
+                <th scope="col">Họ Và Tên</th>
+                <th scope="col">SĐT</th>
+                <th scope="col">Ghi Chú</th>
+                <th scope="col">Trạng Thái</th>
+                <th scope="col">Hành Động</th>
+              </tr>
+            </thead>
+            <tbody ng-if="items5.length > 0">
+                <tr ng-repeat="item in pager5.items5">
+                    <th scope="row">{{item.orderId}}</th>
+                    <th scope="row">{{item.address}}</th>
+                    <th scope="row">{{item.tongTienThanhToan | currency : ''}} VNĐ</th>
+                    <th scope="row">{{item.fullName}}</th>
+                    <th scope="row">{{item.phoneNumber}}</th>
+                    <th scope="row">{{item.description}}</th>
+                    <th scope="row">{{item.statusId.statusName}}</th>
+                    <td>
+                        <div class="btn-group btn-group-xs">
+                            <button ng-click="edit(item)" class="btn btn-warning"><i class="fas fa-camera fa-xs"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody> 
+          </table>
+          <p style="text-align: center; color: darkblue; font-weight: 800;" ng-if="!items5.length > 0">Chưa có đơn hàng</p> 
+          <div class="row" ng-if="items5.length > 0">
+              <div class="col-sm-6">
+                Hiển thị đơn hàng thứ <span>{{(pager5.page5+1)*5-4}}</span> đến {{(pager5.page5+1)*5}} trong danh sách Đơn Hàng
+              </div>
+              <div class="col-sm-6">
+                <button ng-click="pager5.first5()" class="btn btn-primary">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button ng-click="pager5.prev5()" class="btn btn-primary">
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button class="btn btn-success">{{pager5.page5 + 1}}/{{pager5.count5}} trang</button>
+                <button ng-click="pager5.next5()" class="btn btn-primary">
+                    <i class="fas fa-forward"></i>
+                </button>
+                <button ng-click="pager5.last5()" class="btn btn-primary">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+              </div>
+          </div>
+         
+    </div>
+</div>
